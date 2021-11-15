@@ -70,8 +70,8 @@ namespace Cupboard
             X509Certificate2? certificate = null;
             foreach (var storeCertificate in store.Certificates)
             {
-                if (storeCertificate.Thumbprint.Equals(resource.Thumbprint, StringComparison.InvariantCultureIgnoreCase) is false
-                    && storeCertificate.FriendlyName.Contains(resource.Name, StringComparison.InvariantCultureIgnoreCase) is false)
+                if (storeCertificate.Thumbprint.Equals(resource.Thumbprint, StringComparison.OrdinalIgnoreCase) is false
+                    && storeCertificate.FriendlyName.Contains(resource.Name, StringComparison.OrdinalIgnoreCase) is false)
                 {
                     continue;
                 }
@@ -124,7 +124,7 @@ namespace Cupboard
                 return ResourceState.Unchanged;
             }
 
-            if (resource.ValidateThumbprint && resource.Thumbprint?.Equals(certificate.Thumbprint, StringComparison.InvariantCultureIgnoreCase) is false)
+            if (resource.ValidateThumbprint && resource.Thumbprint?.Equals(certificate.Thumbprint, StringComparison.OrdinalIgnoreCase) is false)
             {
                 _logger.Error($"Certificate thumbprint does not match. The provided thumbprint '{resource.Thumbprint}' is not equal to the thumbprint inside the certificate '{certificate.Thumbprint}'");
                 return ResourceState.Error;
@@ -156,7 +156,7 @@ namespace Cupboard
                 return ResourceState.Error;
             }
 
-            if (resource.ValidateThumbprint && resource.Thumbprint?.Equals(certificate.Thumbprint, StringComparison.InvariantCultureIgnoreCase) is false)
+            if (resource.ValidateThumbprint && resource.Thumbprint?.Equals(certificate.Thumbprint, StringComparison.OrdinalIgnoreCase) is false)
             {
                 _logger.Error($"Certificate thumbprint does not match. The provided thumbprint '{resource.Thumbprint}' is not equal to the thumbprint inside the certificate '{certificate.Thumbprint}'");
                 return ResourceState.Error;
